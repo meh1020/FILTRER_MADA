@@ -176,10 +176,11 @@ class ArticleController extends Controller
             "Nosy Sakatia", "Mghlv", "Morondava", "Toamgt"
         ];
 
-        $articles = Article::where(function($query) use ($filtreDestinations) {
+        $articles = Article::where(function ($query) use ($filtreDestinations) {
             foreach ($filtreDestinations as $destination) {
-                $query->orWhere('destination', 'LIKE', "%$destination%");
+                $query->orWhere('destination', $destination);
             }
+            $query->orWhere('destination', 'LIKE', 'Mg%');
         })->get();
 
         return view('articles.index', compact('articles'));
